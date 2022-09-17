@@ -23,9 +23,14 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "/node_modules/jquery/dist/jquery.js",
+              "/node_modules/bootstrap/dist/js/bootstrap.js",
+              "/node_modules/alertifyjs/build/alertify.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -90,6 +95,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -97,5 +103,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "4aecb8bc-fb5d-465f-b4e5-d5b5d0b893a7"
   }
 }
