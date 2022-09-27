@@ -1,25 +1,77 @@
-import { NgModule } from '@angular/core';
+import { enableProdMode, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
+import {
+  MatDialogModule,
+  MAT_DIALOG_DEFAULT_OPTIONS,
+} from '@angular/material/dialog';
 import { ErrorInterceptorProvider } from './_helpers/erro-interceptor';
+import { AuthService } from './_services/auth.service';
+import { AlertifyService } from './_services/alertify.service';
+import { HomeComponent } from './home/home.component';
+import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
+import {
+  ErrorStateMatcher,
+  ShowOnDirtyErrorStateMatcher,
+} from '@angular/material/core';
+import ptBr from '@angular/common/locales/pt';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+import { RouterModule } from '@angular/router';
+import { AdminRoutes } from './admin.routing';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
+enableProdMode();
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
-      NavMenuComponent
-   ],
+    NavMenuComponent,
+    HomeComponent,
+    AuthCallbackComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatInputModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatDialogModule,
+    BsDropdownModule.forRoot(),
+    ReactiveFormsModule,
+    ButtonsModule.forRoot(),
+    PaginationModule.forRoot(),
+    TabsModule.forRoot(),
+    ProgressbarModule.forRoot(),
+    BrowserAnimationsModule,
+    RouterModule.forRoot(AdminRoutes),  
+    NgxSpinnerModule
   ],
   providers: [
-    ErrorInterceptorProvider
+    AuthService,
+    AlertifyService,
+    ErrorInterceptorProvider,
+    { provide: LOCALE_ID, useValue: 'pt-br' },
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
