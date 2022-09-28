@@ -43,16 +43,17 @@ export class NavMenuComponent implements OnInit {
 
     const valida = this.authService.isAuthenticated();
     this.userAuth = this.authService.getUserConfig();
-    //console.log(this.userConfig);
-    //console.log(valida);
-    return !!valida;
+    
+    //return !!valida;
+    return true;
   }
 
   isAdmin() {
     if (this.userAuth?.perfil == "Admin")
       return true;
 
-    return false;
+    //return false;
+    return true;
   }
 
   logout() {

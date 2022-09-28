@@ -1,63 +1,60 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <!--<button type="button"
-                class="nav navbar-toggle collapsep"
-                data-toggle="collapse"
-                data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>-->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarColor01"
+      aria-controls="navbarColor01"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#"
+            >Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            data-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            >Dropdown</a
+          >
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+          </div>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" />
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">
+          Search
         </button>
-        <a class="navbar-brand"
-           [routerLink]="['/home']"
-           routerLinkActive="router-link-active">SGWS App</a>
-      </div>
-     
-      <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav mr-auto" *ngIf="loggedin()">
-          <li  class="dropdown" *ngIf="isAdmin()" [routerLink]="['/listar-usuario']"><a >Listar Usuários</a></li>
-          <li class="dropdown"><a [routerLink]="['/editar-cadastro/', userAuth.idPessoa]">Cadastro <span class="caret"></span></a></li>
-          <li class="dropdown" dropdown>
-            <a (click)="(false)" class="dropdown-toggle" dropdownToggle>
-              Agendamentos<span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu" *dropdownMenu>
-
-              <li>
-                <a [routerLink]="['/tarefas/cadastrar']"
-                   routerLinkActive="router-link-active">Cadastro</a>
-              </li>
-
-              <li>
-                <a [routerLink]="['/tarefas']"
-                   routerLinkActive="router-link-active">Listar</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <ul *ngIf="loggedin()" class="nav navbar-nav navbar-right">
-          <!--<li><a (click)="logout()">Sair</a></li>-->
-          <li class="dropdown" dropdown>
-            <a (click)="(false)" class="dropdown-toggle" dropdownToggle>
-              Bem Vindo {{ getNome() }}
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu" *dropdownMenu>
-
-              <li role="separator" class="divider"></li>
-              <li>
-                <a (click)="logout()"><i class="fa fa-sign-out"></i>Sair</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+      </form>
     </div>
   </nav>
 </header>

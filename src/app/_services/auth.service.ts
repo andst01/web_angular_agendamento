@@ -22,21 +22,25 @@ export class AuthService {
   private manager = new UserManager(getClientSettings());
   private user: User | null;
   public userAuth: UserAuth;
-  
+
   //#endregion
 
   baseUrl = environment.apiAuth + 'auth/';
   userToken: any;
-  
+
   constructor(public http: HttpClient) {
     this.manager.getUser().then((user) => {
-      this.userAuth.nome = user?.profile?.nickname ?? '';
-      this.userAuth.access_token = user?.access_token ?? '';
-      this.userAuth.perfil = user?.profile?.name ?? '';
+      console.log(user);
+      if (user != null) {
+        this.userAuth.nome = user?.profile?.nickname ?? '';
+        this.userAuth.access_token = user?.access_token ?? '';
+        this.userAuth.perfil = user?.profile?.name ?? '';
 
-      localStorage.setItem('user', JSON.stringify(this.userAuth));
-
-      this._authNavStatusSource.next(this.isAuthenticated());
+        localStorage.setItem('user', JSON.stringify(this.userAuth));
+        this._authNavStatusSource.next(this.isAuthenticated());
+      }
+      
+     
     });
   }
 
@@ -61,7 +65,6 @@ export class AuthService {
 
   Nome(): string {
     return this.userAuth != null ? this.userAuth.nome : '';
-
   }
 
   async signout(): Promise<void> {
@@ -79,7 +82,7 @@ export class AuthService {
   }
 
   getUserConfig(): UserAuth {
-   // if (this.user == null) return null;
+    // if (this.user == null) return null;
     return this.userAuth;
   }
 }
@@ -89,8 +92,8 @@ export function getClientSettings(): UserManagerSettings {
     authority: 'http://localhost:5000',
     client_id: 'mvc.portal.evento-oidc',
     client_secret: 'secret',
-    redirect_uri: 'http://localhost:52858/auth-callback',
-    post_logout_redirect_uri: 'http://localhost:52858/',
+    redirect_uri: 'http://localhost:4200/auth-callback',
+    post_logout_redirect_uri: 'http://localhost:4200/',
     response_type: 'id_token token',
     //response_type:'code id_token',
     scope: 'openid profile offline_access SGSWApi',

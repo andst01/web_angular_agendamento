@@ -33,6 +33,8 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { RouterModule } from '@angular/router';
 import { AdminRoutes } from './admin.routing';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './_guard/auth.guard';
 
 enableProdMode();
 
@@ -44,6 +46,7 @@ enableProdMode();
     AuthCallbackComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -65,6 +68,7 @@ enableProdMode();
     NgxSpinnerModule
   ],
   providers: [
+    AuthGuard,
     AuthService,
     AlertifyService,
     ErrorInterceptorProvider,

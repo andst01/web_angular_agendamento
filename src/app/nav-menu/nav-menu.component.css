@@ -17,23 +17,27 @@ html {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }*/
 .dropdown-menu li{
-    cursor:pointer;
+  cursor:pointer;
 }
 img{
-    max-height: 50px;
-    display: inline;
-    border: 2px solid white;
-}
-.dropdown-menu li {
-  cursor: pointer;
-}
-
-img {
   max-height: 50px;
   display: inline;
   border: 2px solid white;
 }
+.dropdown-menu li {
+cursor: pointer;
+}
+
+img {
+max-height: 50px;
+display: inline;
+border: 2px solid white;
+}
 a {
-  color: #FFF !important;
-  padding: 10px 20px;
+color: #FFF !important;
+padding: 10px 20px;
+}
+a[_ngcontent-ogx-c1] {
+color: #FFF !important;
+padding: 5px 20px !important;
 }

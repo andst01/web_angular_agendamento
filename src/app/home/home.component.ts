@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService) { }
 
   ngOnInit() {
+    // this.authService.getUser();
+  }
+
+  redirectLogin() {
+    this.router.navigate(['/login'], { replaceUrl: true });
+  }
+
+  redirectRegistrar() {
+    this.router.navigate(['/registrar'], { replaceUrl: true });
   }
 
 }
