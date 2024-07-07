@@ -14,6 +14,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 html, body { height: 100%; }
 body { margin: 0; font-family: 'Roboto', sans-serif; }
 
+.navbar {
+  padding: 2px 20px 2px 3px !important;
+}
+
 .text-error {
   color: red
 }
@@ -162,6 +166,7 @@ body { margin: 0; font-family: 'Roboto', sans-serif; }
 .ml-2,
 .mx-2 {
   margin-left: 0.5rem !important;
+  margin-right: 10px;
 }
 
 .m-3 {
@@ -255,7 +260,7 @@ dropdown-menu > li > a {
 
 .navbar-nav > li {
   color: white;
-  background-color: #008CBA;
+  background-color: #007bff ;
   margin-top: 0;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
@@ -263,7 +268,7 @@ dropdown-menu > li > a {
 
 .navbar-nav > li > .dropdown-menu {
   color: white;
-  background-color: #008CBA;
+  background-color: #007bff ;
   /*margin-top: 0;*/
   margin-top: 5px;
   margin-left: 10px;
@@ -331,4 +336,11 @@ dropdown-menu > li > a {
 
   .custom-class h4 {
     color: #d34615;
+  }
+
+
+  .dropdown-item:hover, .dropdown-item:focus {
+    color: #16181b;
+    text-decoration: none;
+    background-color: #0069d9 !important;
   }
