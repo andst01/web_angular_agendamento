@@ -7,7 +7,42 @@ import { catchError } from 'rxjs/operators';
     providedIn: 'root'
  })
 export class ErrorInterceptor implements HttpInterceptor {
-    
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+      return next.handle(req).pipe(
+        catchError((error: HttpErrorResponse) =>{
+            let errorMessage = "";
+
+            if(error.status == 400){
+              return throwError(error.statusText);
+            }
+            const applicationError = error.headers.get('Application-Error');
+            if (applicationError) {
+              return throwError(applicationError);
+            }
+
+            const serverError = error.error;
+            let modalStateError = '';
+
+            if (serverError && typeof serverError === 'object') {
+              for (const key in serverError) {
+                if (serverError[key]) {
+                  modalStateError += serverError[key] + '\n';
+                }
+              }
+
+              return throwError(modalStateError || serverError || 'Server Error');
+            }
+
+
+            return throwError(() => new Error(errorMessage));
+
+        })
+      )
+
+     //throw new Error('Method not implemented.');
+  }
+
+  /*
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError(error => {
@@ -39,7 +74,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     )
   }
-
+  */
 }
 
 export const ErrorInterceptorProvider = {

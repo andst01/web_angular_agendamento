@@ -3,32 +3,41 @@ import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, catchError } from 'rxjs';
-import { User, UserManager, UserManagerSettings } from 'oidc-client';
+import { User, UserManager, UserManagerSettings, UserSettings } from 'oidc-client';
 import { UserAuth } from '../_models/UserAuth';
+import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 
 const jwtHelper = new JwtHelperService();
 
 @Injectable({
   providedIn: 'root',
 })
+
+
+
 export class AuthService {
   baseUrlApi: string = environment.apiLocal;
   public decodeToken: any;
+  teste: boolean = false;
+  //private userSettings: UserSettings;
+  user: User | any;
+  userAuth: UserAuth = new UserAuth();
   //#region Novo
   // Observable navItem source
   private _authNavStatusSource = new BehaviorSubject<boolean>(false);
   authNavStatus$ = this._authNavStatusSource.asObservable();
 
   private manager = new UserManager(getClientSettings());
-  private user: User | null;
-  public userAuth: UserAuth;
+
+
 
   //#endregion
 
   baseUrl = environment.apiAuth + 'auth/';
   userToken: any;
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient
+  ) {
     this.manager.getUser().then((user) => {
       console.log(user);
       if (user != null) {
@@ -36,11 +45,12 @@ export class AuthService {
         this.userAuth.access_token = user?.access_token ?? '';
         this.userAuth.perfil = user?.profile?.name ?? '';
 
+
         localStorage.setItem('user', JSON.stringify(this.userAuth));
         this._authNavStatusSource.next(this.isAuthenticated());
       }
-      
-     
+
+
     });
   }
 

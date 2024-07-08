@@ -9,15 +9,19 @@ import { AuthService } from '../_services/auth.service';
 })
 export class AuthCallbackComponent implements OnInit {
 
-  error: boolean;
+
+  public error: boolean = false;
+  //objError: boolean;
   constructor(private authService: AuthService,
+    //private errorTeste: boolean,
+    //private testeError: boolean,
     private router: Router,
     private activeRoute: ActivatedRoute) {
 
   }
   async ngOnInit() {
     if (this.activeRoute.snapshot.fragment != null && this.activeRoute.snapshot.fragment.indexOf('error') >= 0) {
-      this.error = true;
+       this.error = true;
       return;
     }
 

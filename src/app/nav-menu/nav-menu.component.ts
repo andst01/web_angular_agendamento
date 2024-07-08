@@ -4,7 +4,7 @@ import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { window } from 'rxjs/operators';
 //import { UserConfig } from '../_models/UserConfig';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 import { AuthService } from '../_services/auth.service';
 import { UserAuth } from '../_models/UserAuth';
 
@@ -15,7 +15,7 @@ import { UserAuth } from '../_models/UserAuth';
 })
 export class NavMenuComponent implements OnInit {
 
- 
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -23,7 +23,7 @@ export class NavMenuComponent implements OnInit {
 
     nome: string | undefined;
     userAuth: UserAuth | undefined;
-  
+
 
   ngOnInit() {
   }
@@ -43,7 +43,7 @@ export class NavMenuComponent implements OnInit {
 
     const valida = this.authService.isAuthenticated();
     this.userAuth = this.authService.getUserConfig();
-    
+
     //return !!valida;
     return true;
   }

@@ -10,7 +10,7 @@ constructor() { }
 
 
 confirm(message: string, okCallback: () => any) {
-  alertify.confirm(message, function (e) {
+  alertify.confirm(message, function (e: any) {
 
     if (e) {
       okCallback();
@@ -20,14 +20,14 @@ confirm(message: string, okCallback: () => any) {
 }
 
 confirm2(title: string, message: string, okCallback: () => any, cancel: () => any) {
-  alertify.confirm(title, message, function (e) {
+  alertify.confirm(title, message, function (e: any) {
 
     if (e) {
       okCallback();
     }
 
 
-  }, function (f) {
+  }, function (f: any) {
     if (f) {
       cancel();
     }
