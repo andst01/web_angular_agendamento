@@ -3,9 +3,9 @@ import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, catchError } from 'rxjs';
-import { User, UserManager, UserManagerSettings, UserSettings } from 'oidc-client';
 import { UserAuth } from '../_models/UserAuth';
 import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
+import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 
 const jwtHelper = new JwtHelperService();
 
@@ -20,14 +20,14 @@ export class AuthService {
   public decodeToken: any;
   teste: boolean = false;
   //private userSettings: UserSettings;
-  user: User | any;
+  // user: User | any;
   userAuth: UserAuth = new UserAuth();
   //#region Novo
   // Observable navItem source
   private _authNavStatusSource = new BehaviorSubject<boolean>(false);
   authNavStatus$ = this._authNavStatusSource.asObservable();
 
-  private manager = new UserManager(getClientSettings());
+  //private manager = new UserManager(getClientSettings());
 
 
 
@@ -38,6 +38,8 @@ export class AuthService {
 
   constructor(public http: HttpClient
   ) {
+
+/*
     this.manager.getUser().then((user) => {
       console.log(user);
       if (user != null) {
@@ -52,43 +54,51 @@ export class AuthService {
 
 
     });
+    */
   }
 
   async completeAuthentication() {
-    this.user = await this.manager.signinRedirectCallback();
-    this._authNavStatusSource.next(this.isAuthenticated());
+   // this.user = await this.manager.signinRedirectCallback();
+   // this._authNavStatusSource.next(this.isAuthenticated());
   }
 
   isAuthenticated(): boolean {
-    return this.user != null && !this.user.expired;
+    //return this.user != null && !this.user.expired;
+    return true;
   }
 
   get authorizationHeaderValue(): string {
-    return `${this.user?.token_type} ${this.user?.access_token}`;
+    //return `${this.user?.token_type} ${this.user?.access_token}`;
+    return '';
   }
 
   get name(): string {
-    if (this.user == null) return '';
+    //if (this.user == null) return '';
 
-    return this.user.profile.nickname ?? '';
+    //return this.user.profile.nickname ?? '';
+
+    return '';
   }
 
   Nome(): string {
-    return this.userAuth != null ? this.userAuth.nome : '';
+    // return this.userAuth != null ? this.userAuth.nome : '';
+    return '';
   }
 
   async signout(): Promise<void> {
-    await this.manager.signoutRedirect();
+    // await this.manager.signoutRedirect();
   }
 
   login() {
-    return this.manager.signinRedirect();
+    //return this.manager.signinRedirect();
   }
 
   register(userRegistration: any) {
-    return this.http
-      .post(environment.apiAuth + '/account', userRegistration)
-      .pipe();
+    //return this.http
+    //  .post(environment.apiAuth + '/account', userRegistration)
+    //  .pipe();
+
+      return '';
   }
 
   getUserConfig(): UserAuth {
@@ -97,6 +107,16 @@ export class AuthService {
   }
 }
 
+export const authConfig: AuthConfig = {
+  issuer: 'https://seu-provedor-de-oauth.com',
+  redirectUri: window.location.origin,
+  clientId: 'seu-client-id',
+  responseType: 'code',
+  scope: 'openid profile email',
+  showDebugInformation: true,
+  dummyClientSecret: ''
+};
+/*
 export function getClientSettings(): UserManagerSettings {
   return {
     authority: 'http://localhost:5000',
@@ -113,3 +133,4 @@ export function getClientSettings(): UserManagerSettings {
     silent_redirect_uri: 'http://localhost:52858/silent-refresh.html',
   };
 }
+  */

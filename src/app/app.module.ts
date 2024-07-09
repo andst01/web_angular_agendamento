@@ -35,6 +35,7 @@ import { AdminRoutes } from './admin.routing';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './_guard/auth.guard';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 enableProdMode();
 
@@ -64,8 +65,9 @@ enableProdMode();
     TabsModule.forRoot(),
     ProgressbarModule.forRoot(),
     BrowserAnimationsModule,
-    RouterModule.forRoot(AdminRoutes),  
-    NgxSpinnerModule
+    RouterModule.forRoot(AdminRoutes),
+    NgxSpinnerModule,
+    OAuthModule.forRoot()
   ],
   providers: [
     AuthGuard,

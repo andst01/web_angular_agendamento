@@ -1,6 +1,6 @@
 import { CloseScrollStrategy } from "@angular/cdk/overlay";
 import { Xliff } from "@angular/compiler";
-import { User } from "oidc-client";
+//import { User } from "oidc-client";
 
 export class UserAuth {
     public id: number = 0;
