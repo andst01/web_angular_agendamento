@@ -36,7 +36,8 @@ export class AuthService {
   baseUrl = environment.apiAuth + 'auth/';
   userToken: any;
 
-  constructor(public http: HttpClient
+  constructor(public http: HttpClient,
+    private oauthService: OAuthService
   ) {
 
 /*
@@ -72,7 +73,7 @@ export class AuthService {
     return '';
   }
 
-  get name(): string {
+  get name1(): string {
     //if (this.user == null) return '';
 
     //return this.user.profile.nickname ?? '';
@@ -105,6 +106,19 @@ export class AuthService {
     // if (this.user == null) return null;
     return this.userAuth;
   }
+
+  private configureOAuth() {
+    this.oauthService.configure(authConfig);
+    this.oauthService.loadDiscoveryDocumentAndTryLogin();
+  }
+
+  get name() {
+    
+    const claims = this.oauthService.getIdentityClaims();
+    if (!claims) return null;
+    return claims['name'];
+  }
+
 }
 
 export const authConfig: AuthConfig = {
@@ -116,6 +130,8 @@ export const authConfig: AuthConfig = {
   showDebugInformation: true,
   dummyClientSecret: ''
 };
+
+
 /*
 export function getClientSettings(): UserManagerSettings {
   return {

@@ -36,6 +36,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './_guard/auth.guard';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { ListarAgendamentoComponent } from './agendamento/listar-agendamento/listar-agendamento.component';
 
 enableProdMode();
 
@@ -45,6 +47,7 @@ enableProdMode();
     NavMenuComponent,
     HomeComponent,
     AuthCallbackComponent,
+    ListarAgendamentoComponent
   ],
   imports: [
     HttpClientModule,
@@ -67,7 +70,8 @@ enableProdMode();
     BrowserAnimationsModule,
     RouterModule.forRoot(AdminRoutes),
     NgxSpinnerModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(),
+    FullCalendarModule
   ],
   providers: [
     AuthGuard,
