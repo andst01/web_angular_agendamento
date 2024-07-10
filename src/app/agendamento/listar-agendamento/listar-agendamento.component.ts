@@ -17,14 +17,14 @@ export class ListarAgendamentoComponent implements OnInit {
    // initialView: 'dayGridMonth',
     weekends: false,
     locale: localesBR,
-    timeZone: 'America/Sao_Paulo',
+    //timeZone: 'America/Sao_Paulo',
     headerToolbar:{
       left: 'prev,next today',
       center: 'title',
        right: 'dayGridMonth,dayGridWeek,dayGridDay'
     },
     events: [
-      { title: 'Meeting', start: new Date() }
+      { title: 'Meeting', start: new Date(2024, 6, 9, 8, 0, 0) }
     ]
   };
 
@@ -33,6 +33,7 @@ export class ListarAgendamentoComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(new Date(2024, 6, 9, 8, 0, 0))
   }
 
 }

@@ -14,3 +14,14 @@
   margin-right: auto;
   margin-left: -5px !important;
 }
+
+.hr {
+  display: block;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: inset;
+  border-width: 1px;
+  border-color: #f4f4f4;
+  border-top: 4px solid #fac863;
+}

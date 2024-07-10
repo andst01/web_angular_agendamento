@@ -38,8 +38,12 @@ import { AuthGuard } from './_guard/auth.guard';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { ListarAgendamentoComponent } from './agendamento/listar-agendamento/listar-agendamento.component';
+import { registerLocaleData } from '@angular/common';
+import localeBR from '@angular/common/locales/br';
 
 enableProdMode();
+// Registre o locale
+registerLocaleData(localeBR);
 
 @NgModule({
   declarations: [
