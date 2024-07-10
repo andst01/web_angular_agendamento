@@ -25,3 +25,23 @@
   border-color: #f4f4f4;
   border-top: 4px solid #fac863;
 }
+
+.mat-select-novo{
+  background-color: #fff !important;
+}
+
+.mat-select-panel {
+  background-color: #fff !important;
+}
+
+.mat-option {
+  background-color: #fff !important;
+}
+
+.mat-option:hover {
+  background-color: #fff !important;
+}
+
+.mat-option::selection {
+  background-color: #fff !important;
+}

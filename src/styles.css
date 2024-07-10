@@ -365,3 +365,72 @@ dropdown-menu > li > a {
     text-decoration: none;
     background-color: #0069d9 !important;
   }
+
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: #fff !important
+
+  }
+  html .mat-mdc-form-field.mat-accent {
+    /* accent color */
+    --mat-select-panel-background-color: #fff !important;
+    --mat-select-enabled-trigger-text-color: rgba(255, 255, 255, .87);
+    --mat-select-disabled-trigger-text-color: rgba(255, 255, 255, .38);
+    --mat-select-placeholder-text-color: rgba(255, 255, 255, .6);
+    --mat-select-enabled-arrow-color: rgba(255, 255, 255, .54);
+    --mat-select-disabled-arrow-color: rgba(255, 255, 255, .38);
+    --mat-select-focused-arrow-color: rgba(105, 240, 174, .87);
+    --mat-select-invalid-arrow-color: rgba(244, 67, 54, .87)
+  }
+
+  div.mat-mdc-select-panel {
+    width: 100%;
+    max-height: 275px;
+    outline: 0;
+    overflow: auto;
+    padding: 8px 0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    position: static;
+    background-color: #fff m !important;
+}
+
+.mat-primary {
+  --mat-full-pseudo-checkbox-selected-icon-color: #3f51b5;
+  --mat-full-pseudo-checkbox-selected-checkmark-color: #fafafa;
+  --mat-full-pseudo-checkbox-unselected-icon-color: rgba(0, 0, 0, 0.54);
+  --mat-full-pseudo-checkbox-disabled-selected-checkmark-color: #fafafa;
+  --mat-full-pseudo-checkbox-disabled-unselected-icon-color: #b0b0b0;
+  --mat-full-pseudo-checkbox-disabled-selected-icon-color: #b0b0b0;
+  --mat-minimal-pseudo-checkbox-selected-checkmark-color: #3f51b5;
+  --mat-minimal-pseudo-checkbox-disabled-selected-checkmark-color: #b0b0b0;
+}
+.mat-primary {
+  --mat-full-pseudo-checkbox-selected-icon-color: #3f51b5;
+  --mat-full-pseudo-checkbox-selected-checkmark-color: #fafafa;
+  --mat-full-pseudo-checkbox-unselected-icon-color: rgba(0, 0, 0, 0.54);
+  --mat-full-pseudo-checkbox-disabled-selected-checkmark-color: #fff;
+  --mat-full-pseudo-checkbox-disabled-unselected-icon-color: #FFF;
+  --mat-full-pseudo-checkbox-disabled-selected-icon-color: #b0b0b0;
+  --mat-minimal-pseudo-checkbox-selected-checkmark-color: #3f51b5;
+  --mat-minimal-pseudo-checkbox-disabled-selected-checkmark-color: #fff;
+}
+.mdc-line-ripple{
+  background-color: #fff !important;
+}
+
+.mat-mdc-form-field-focus-overlay {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  background-color: #fff !important;
+}
+
+.mat-mdc-option:focus.mdc-list-item, .mat-mdc-option.mat-mdc-option-active.mdc-list-item {
+   background-color: #fff !important;
+}
+
+
