@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CalendarOptions } from '@fullcalendar/core';
+import { CalendarOptions, DatesSetArg } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import localesBR from '@fullcalendar/core/locales/pt-br';
@@ -9,6 +9,9 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServicoModel } from '../../_models/ServicoModel';
 import { map, Observable, startWith } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
+
 
 @Component({
   selector: 'app-agendamento',
@@ -23,22 +26,28 @@ export class ListarAgendamentoComponent implements OnInit {
     ServicoModel[]
   >();
   servicoControl = new FormControl();
+  // dayGridPlugin
   calendarOptions: CalendarOptions = {
-    plugins: [dayGridPlugin, bootstrapPlugin, interactionPlugin],
-    themeSystem: 'Litera',
+    plugins: [bootstrapPlugin, interactionPlugin, resourceTimeGridPlugin, dayGridPlugin],
+    initialView: 'timeGridWeek',
+    themeSystem: 'bootstrap',
+    datesSet: this.handleDatesSet.bind(this),
     // initialView: 'dayGridMonth',
-    weekends: false,
+    weekends: true,
     locale: localesBR,
-    //timeZone: 'America/Sao_Paulo',
+    hiddenDays: [0],
+    startParam: '08:00',
     headerToolbar: {
-      left: 'prev,next today',
+      left: 'prev,next',
       center: 'title',
-      right: 'dayGridMonth,dayGridWeek,dayGridDay',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay' //'dayGridMonth,dayGridWeek,dayGridDay',
     },
     editable: true,
-
-    events: [{ title: 'Meeting', start: new Date(2024, 6, 9, 8, 0, 0) }],
+    dayMaxEvents: true,
+    events: [{ title: 'Meeting', date:'09/07/2024', start: new Date(2024, 6, 9, 8, 0, 0), end: new Date(2024, 6, 9, 8, 30, 0), color: 'red'}],
   };
+
+
 
   constructor() {}
 
@@ -94,7 +103,11 @@ export class ListarAgendamentoComponent implements OnInit {
     console.log(event);
   }
 
-  displayFn(option: ServicoModel): string {
-    return option ? option.nome : '';
+  handleDatesSet(arg: DatesSetArg) {
+    if (arg.view.type === 'timeGridWeek') {
+      console.log(arg);
+      console.log('Visualização timeGridWeek acionada');
+      // Aqui você pode realizar ações quando a visualização timeGridWeek é acionada
+    }
   }
 }
