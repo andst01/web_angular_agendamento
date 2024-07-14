@@ -42,15 +42,36 @@
             <mat-autocomplete
               #auto="matAutocomplete"
               (optionSelected)="populateForm($event)"
-
+              [displayWith]="displayFn"
             >
-              <mat-option *ngFor="let item of filteredOptions | async" [attr.data-dados]="item.id" [value]="item.nome">{{
+              <mat-option *ngFor="let item of filteredOptions | async" [attr.data-dados]="item.id" [value]="item">{{
                 item.nome
               }}</mat-option>
 
             </mat-autocomplete>
           </mat-form-field>
         </div>
+      </div>
+      <div class="form-group" style="margin-top: 40px">
+          <div style="margin-left: 35px">
+            <mat-form-field style="background-color: #fff">
+              <mat-label>Profissionais</mat-label>
+
+              <mat-select [(value)]="selectedProfessionals">
+                <mat-select-trigger>
+                    {{ (selectedProfessionals.id > 0) ? selectedProfessionals.nome : 'selecione um item' }}
+                </mat-select-trigger>
+                <mat-option>
+                  <input matInput placeholder="Filtrar"
+                        [(ngModel)]="filterProfessionalsValue"
+                        (keyup)="getfilterProfessionals()">
+                </mat-option>
+                <mat-option *ngFor="let item of filteredProfessionals" [value]="item">
+                  {{ item.nome  }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
       </div>
     </div>
   </div>

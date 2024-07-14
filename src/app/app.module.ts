@@ -24,7 +24,7 @@ import {
   ShowOnDirtyErrorStateMatcher,
 } from '@angular/material/core';
 import ptBr from '@angular/common/locales/pt';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
@@ -75,7 +75,8 @@ registerLocaleData(localeBR);
     RouterModule.forRoot(AdminRoutes),
     NgxSpinnerModule,
     OAuthModule.forRoot(),
-    FullCalendarModule
+    FullCalendarModule,
+    FormsModule
   ],
   providers: [
     AuthGuard,

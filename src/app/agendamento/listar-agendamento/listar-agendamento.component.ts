@@ -1,3 +1,4 @@
+import { ServicoModel } from './../../_models/ServicoModel';
 import { Component, OnInit } from '@angular/core';
 import { CalendarOptions, DatesSetArg } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -6,7 +7,6 @@ import localesBR from '@fullcalendar/core/locales/pt-br';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
 import { MatInputModule } from '@angular/material/input';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ServicoModel } from '../../_models/ServicoModel';
 import { map, Observable, startWith } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -26,13 +26,25 @@ export class ListarAgendamentoComponent implements OnInit {
     ServicoModel[]
   >();
   servicoControl = new FormControl();
-  // dayGridPlugin
+
+  selectProfessionals = [
+    { id: 1, nome: 'Ana' },
+    { id: 2, nome: 'Beatriz' },
+    { id: 3, nome: 'João' },
+  ];
+
+  filteredProfessionals = this.selectProfessionals;
+  public filterProfessionalsValue = "";
+  selectedProfessionals = {id: 0, nome: ""};
+
   calendarOptions: CalendarOptions = {
     plugins: [bootstrapPlugin, interactionPlugin, resourceTimeGridPlugin, dayGridPlugin],
     initialView: 'timeGridWeek',
     themeSystem: 'bootstrap',
     datesSet: this.handleDatesSet.bind(this),
     // initialView: 'dayGridMonth',
+    slotMinTime: '08:00',
+    slotMaxTime : '19:00',
     weekends: true,
     locale: localesBR,
     hiddenDays: [0],
@@ -43,7 +55,8 @@ export class ListarAgendamentoComponent implements OnInit {
       right: 'dayGridMonth,timeGridWeek,timeGridDay' //'dayGridMonth,dayGridWeek,dayGridDay',
     },
     editable: true,
-    dayMaxEvents: true,
+    allDaySlot: false,
+    dayMaxEvents: false,
     events: [{ title: 'Meeting', date:'09/07/2024', start: new Date(2024, 6, 9, 8, 0, 0), end: new Date(2024, 6, 9, 8, 30, 0), color: 'red'}],
   };
 
@@ -62,6 +75,8 @@ export class ListarAgendamentoComponent implements OnInit {
     );
 
     console.log('Serviço seleciona é ' + this.servicoControl.value);
+
+    this.filteredProfessionals = this.selectProfessionals;
   }
 
   listarServicos() {
@@ -100,7 +115,8 @@ export class ListarAgendamentoComponent implements OnInit {
   }
   populateForm(event: MatAutocompleteSelectedEvent) {
     //event.source
-    console.log(event);
+    //event.option.
+    console.log(event.option.value);
   }
 
   handleDatesSet(arg: DatesSetArg) {
@@ -110,4 +126,17 @@ export class ListarAgendamentoComponent implements OnInit {
       // Aqui você pode realizar ações quando a visualização timeGridWeek é acionada
     }
   }
+
+  displayFn(servico: ServicoModel) : string {
+      return servico && servico.nome ? servico.nome : '';
+  }
+
+  getfilterProfessionals(): void {
+    const filterValueLower = this.filterProfessionalsValue.toLowerCase();
+    this.filteredProfessionals = this.selectProfessionals.filter(item =>
+      item.nome.toLowerCase().includes(filterValueLower)
+    );
+  }
+
+  // https://stackoverflow.com/questions/48442794/implement-a-search-filter-for-the-mat-select-component-of-angular-material
 }
