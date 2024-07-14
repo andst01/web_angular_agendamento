@@ -56,7 +56,21 @@
           <div style="margin-left: 35px">
             <mat-form-field style="background-color: #fff">
               <mat-label>Profissionais</mat-label>
+              <input
+              type="text"
+              aria-label="Profissionais"
+              matInput
+              [formControl]="profissionaisControl"
+              [matAutocomplete]="autoProf"
+            />
+            <mat-autocomplete #autoProf="matAutocomplete"
+                              [displayWith]="displayProfFn">
+              <mat-option *ngFor="let prof of profissionaisOptions | async" [value]="prof">
+                {{prof.nome}}
+              </mat-option>
 
+            </mat-autocomplete>
+<!--
               <mat-select [(value)]="selectedProfessionals">
                 <mat-select-trigger>
                     {{ (selectedProfessionals.id > 0) ? selectedProfessionals.nome : 'selecione um item' }}
@@ -69,7 +83,7 @@
                 <mat-option *ngFor="let item of filteredProfessionals" [value]="item">
                   {{ item.nome  }}
                 </mat-option>
-              </mat-select>
+              </mat-select> -->
             </mat-form-field>
           </div>
       </div>

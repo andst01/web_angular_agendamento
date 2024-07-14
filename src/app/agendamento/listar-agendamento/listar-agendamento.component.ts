@@ -11,7 +11,7 @@ import { map, Observable, startWith } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
-
+import { ProfissionalModel } from '../../_models/ProfissionalModel';
 
 @Component({
   selector: 'app-agendamento',
@@ -25,26 +25,39 @@ export class ListarAgendamentoComponent implements OnInit {
   filteredOptions: Observable<ServicoModel[]> = new Observable<
     ServicoModel[]
   >();
-  servicoControl = new FormControl();
 
+  servicoControl = new FormControl();
+  profissionais: ProfissionalModel[] = [];
+  profissionaisControl = new FormControl();
+  profissionaisOptions: Observable<ProfissionalModel[]> = new Observable<
+    ProfissionalModel[]
+  >();
+
+  /*
   selectProfessionals = [
     { id: 1, nome: 'Ana' },
     { id: 2, nome: 'Beatriz' },
     { id: 3, nome: 'João' },
   ];
+  */
 
-  filteredProfessionals = this.selectProfessionals;
-  public filterProfessionalsValue = "";
-  selectedProfessionals = {id: 0, nome: ""};
+  //filteredProfessionals = this.selectProfessionals;
+  //public filterProfessionalsValue = "";
+  //selectedProfessionals = {id: 0, nome: ""};
 
   calendarOptions: CalendarOptions = {
-    plugins: [bootstrapPlugin, interactionPlugin, resourceTimeGridPlugin, dayGridPlugin],
+    plugins: [
+      bootstrapPlugin,
+      interactionPlugin,
+      resourceTimeGridPlugin,
+      dayGridPlugin,
+    ],
     initialView: 'timeGridWeek',
     themeSystem: 'bootstrap',
     datesSet: this.handleDatesSet.bind(this),
     // initialView: 'dayGridMonth',
     slotMinTime: '08:00',
-    slotMaxTime : '19:00',
+    slotMaxTime: '19:00',
     weekends: true,
     locale: localesBR,
     hiddenDays: [0],
@@ -52,31 +65,34 @@ export class ListarAgendamentoComponent implements OnInit {
     headerToolbar: {
       left: 'prev,next',
       center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay' //'dayGridMonth,dayGridWeek,dayGridDay',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay', //'dayGridMonth,dayGridWeek,dayGridDay',
     },
     editable: true,
     allDaySlot: false,
     dayMaxEvents: false,
-    events: [{ title: 'Meeting', date:'09/07/2024', start: new Date(2024, 6, 9, 8, 0, 0), end: new Date(2024, 6, 9, 8, 30, 0), color: 'red'}],
+    events: [
+      {
+        title: 'Meeting',
+        date: '09/07/2024',
+        start: new Date(2024, 6, 9, 8, 0, 0),
+        end: new Date(2024, 6, 9, 8, 30, 0),
+        color: 'red',
+      },
+    ],
   };
-
-
 
   constructor() {}
 
   ngOnInit() {
-    console.log(new Date(2024, 6, 9, 8, 0, 0));
+    // console.log(new Date(2024, 6, 9, 8, 0, 0));
     this.listarServicos();
+    this.pupulateServicos();
+    this.listarProfionais();
 
-    this.filteredOptions = this.servicoControl.valueChanges.pipe(
-      startWith(''),
-      map((value) => (typeof value === 'string' ? value : value.nome)),
-      map((nome) => (nome ? this._filter(nome) : this.servicos.slice()))
-    );
+    this.populateProfissionais();
+    //console.log('Serviço seleciona é ' + this.servicoControl.value);
 
-    console.log('Serviço seleciona é ' + this.servicoControl.value);
-
-    this.filteredProfessionals = this.selectProfessionals;
+    //this.filteredProfessionals = this.selectProfessionals;
   }
 
   listarServicos() {
@@ -103,6 +119,42 @@ export class ListarAgendamentoComponent implements OnInit {
     console.log(this.servicos);
   }
 
+  pupulateServicos() {
+    this.filteredOptions = this.servicoControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => (typeof value === 'string' ? value : value.nome)),
+      map((nome) => (nome ? this._filter(nome) : this.servicos.slice()))
+    );
+  }
+
+  populateProfissionais() {
+    this.profissionaisOptions = this.profissionaisControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => (typeof value === 'string' ? value : value.nome)),
+      map((nome) => (nome ? this._filterProf(nome) : this.profissionais.slice()))
+    );
+  }
+
+  listarProfionais() {
+    let profissional = new ProfissionalModel();
+    profissional.id = 1;
+    profissional.nome = 'Ana';
+
+    this.profissionais.push(profissional);
+
+    let profifissional2 = new ProfissionalModel();
+    profifissional2.id = 2;
+    profifissional2.nome = 'Beatriz';
+
+    this.profissionais.push(profifissional2);
+
+    let profifissional3 = new ProfissionalModel();
+    profifissional3.id = 3;
+    profifissional3.nome = 'João Machado';
+
+    this.profissionais.push(profifissional3);
+  }
+
   private _filter(value: string): ServicoModel[] {
     console.log('filter');
     console.log(value);
@@ -113,6 +165,17 @@ export class ListarAgendamentoComponent implements OnInit {
       servico.nome.toLowerCase().includes(filterValue)
     );
   }
+  private _filterProf(value: string): ProfissionalModel[] {
+    console.log('filter');
+    console.log(value);
+    // const filterValue = "";
+    const filterValue = value != null ? value.toLowerCase() : '';
+
+    return this.profissionais.filter((prof) =>
+      prof.nome.toLowerCase().includes(filterValue)
+    );
+  }
+
   populateForm(event: MatAutocompleteSelectedEvent) {
     //event.source
     //event.option.
@@ -127,16 +190,22 @@ export class ListarAgendamentoComponent implements OnInit {
     }
   }
 
-  displayFn(servico: ServicoModel) : string {
-      return servico && servico.nome ? servico.nome : '';
+  displayFn(servico: ServicoModel): string {
+    return servico && servico.nome ? servico.nome : '';
   }
 
+  displayProfFn(prof: ProfissionalModel): string {
+    return prof && prof.nome ? prof.nome : '';
+  }
+
+  /*
   getfilterProfessionals(): void {
     const filterValueLower = this.filterProfessionalsValue.toLowerCase();
     this.filteredProfessionals = this.selectProfessionals.filter(item =>
       item.nome.toLowerCase().includes(filterValueLower)
     );
   }
+  */
 
   // https://stackoverflow.com/questions/48442794/implement-a-search-filter-for-the-mat-select-component-of-angular-material
 }
